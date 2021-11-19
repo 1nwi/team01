@@ -1,7 +1,5 @@
 #전역
 
-# id_list=[]  #회원가입하면 저장될 아이디 리스트
-# pw_list=[]  #회원가입하면 저장될 비번 리스트
 
 user_list = [
     {
@@ -38,26 +36,15 @@ book_store = [
         '총액': '15000'
     }
 ]
-import sys
+
 #함수 정의부
 
 #첫 회원가입/로그인 화면 보여주기
 def show_first():
-    print('\n\n====== 도서 재고관리 프로그램 ======')
+    print("\n\n====== 도서 재고관리 프로그램 ======")
     print('1. 신규 직원 등록하기')
     print('2. 기존 직원 로그인하기')
     print('3. 프로그램 종료하기')
-
-# 로그인 이후 나오는 도서 재고관리 프로그램
-def show_second():
-    print('\n*** 재고 관리 프로그램 ***')
-    print('# 1. 도서 정보 등록')
-    print('# 2. 모든 도서 조회')
-    print('# 3. 개별 도서 조회')
-    print('# 4. 도서정보 수정')
-    print('# 5. 도서정보 삭제')
-    print('# 6. 프로그램 종료')
-
 
 #중복을 확인하는 함수(아이디)
 def check_duplicate_code_id():
@@ -92,6 +79,51 @@ def insert_id_pw():
     print('\n회원가입이 완료되었습니다.')
 
 # 기존 직원 로그인
+# 아이디를 입력받는
+def input_id():
+    return input('아이디 >> ') 
+# 비번을 입력받는
+def input_pw():
+    return input('비밀번호 >> ') 
+
+
+
+#아이디로 정보를 찾아오는
+def find_login(id):
+    for already_user in user_list:
+        if id == already_user['id']:
+            return already_user
+    return {}
+    
+def login():
+    find_id = input_id()
+    already_user = find_login(find_id)
+
+    if len(already_user) > 0:
+        in_pw = input_pw() # 방금 입력한 비번
+        real_pw = already_user['pw']
+            
+        while True:
+            if in_pw == real_pw:
+                print('{}님, 로그인에 성공하셨습니다.'.format(already_user['id']))
+                return True
+            else :
+                print('비밀번호가 틀렸습니다.')
+                break
+            # 도서목록
+            #pass
+    else:
+        ('가입되지 않은 정보입니다.')
+
+# 로그인 이후 나오는 도서 재고관리 프로그램
+def show_second():
+    print('\n*** 재고 관리 프로그램 ***')
+    print('# 1. 도서 정보 등록')
+    print('# 2. 모든 도서 조회')
+    print('# 3. 개별 도서 조회')
+    print('# 4. 도서정보 수정')
+    print('# 5. 도서정보 삭제')
+    print('# 6. 프로그램 종료')
 
 #  도서 번호의 중복을 확인하는 함수
 def check_book_code():
@@ -147,7 +179,8 @@ def search_code(book_code):
     for book in book_store:
         if book_code == book['도서번호']:
             return book
-    return {}
+    return {}    
+
 
 
 
@@ -161,7 +194,8 @@ def exit_program():
     else:
         return
 
-    
+
+
 
 
 #실행부

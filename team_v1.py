@@ -87,6 +87,7 @@ def login():
                 return True
             else :
                 print('비밀번호가 틀렸습니다.')
+                break
             # 도서목록
             #pass
     else:
