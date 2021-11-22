@@ -81,7 +81,8 @@ def insert_id_pw():
 
     user_list.append(user)
     
-    print('\n회원가입이 완료되었습니다.')
+    print('\n>> 회원가입이 완료되었습니다. <<')
+
 
 # 기존 직원 로그인
 # 아이디를 입력받는
@@ -121,7 +122,7 @@ def login():
                             
         while True:
             if in_pw == real_pw:
-                print('{}님, 로그인에 성공하셨습니다.'.format(already_user['id']))
+                print('>> {}님, 로그인에 성공하셨습니다. <<'.format(already_user['id']))
                 return True
             else :
                 print('\n!! 비밀번호를 잘못 입력했습니다 !!')
@@ -138,7 +139,7 @@ def login():
 # 로그인 이후 나오는 도서 재고관리 프로그램
 # 로그인 이후 나오는 메뉴 출력함수
 def show_second():
-    print('\n\n# 1. 신규 도서 등록하기')
+    print('# 1. 신규 도서 등록하기')
     print('# 2. 모든 도서 조회하기')
     print('# 3. 개별 도서 조회하기')
     print('# 4. 도서 정보 수정')
@@ -155,7 +156,7 @@ def check_book_code():
 
         for b in book_store:
             if book_code == b['책번호']:
-                print('\n# 도서 번호가 중복되었습니다. 다시 입력하세요!')
+                print('\n!!! 도서 번호가 중복되었습니다. 다시 입력하세요 !!!')
                 flag = True
                 break
         if flag == False:
@@ -174,13 +175,14 @@ def ipt_book():
     book['총액'] = book['가격'] * book['수량']
 
     book_store.append(book)
-    print('\n# 신규 도서가 등록되었습니다.')
+    print('\n>> 신규 도서가 등록되었습니다. <<')
+
 
 # 도서정보 출력 머리말
 def books_header():
     print('\n\n\t\t ***** 도서 재고 정보 *****')
     print('=' * 60)
-    print('{:^8s}{:^8s}{:^8s}{:^10s}{:^10s}'.format('책번호','책이름','가격','수량','총액'))
+    print('{:^7s}{:^12s}{:^10s}{:^7s}{:^12s}'.format('책번호','책이름','가격','수량','총액'))
     print('=' * 60)
     
 # 전체 도서정보를 출력하는 함수
@@ -190,13 +192,13 @@ def all_books():
     total_price =0
     for book in book_store:
         total_price += book['총액']
-        print('{:^10s}{:<10s}{:>8d}원{:>6d}개{:>12d}원'.format(book['책번호'],book['책이름'],book['가격'],book['수량'],book['총액']))
-    print('=' * 55)
+        print('{:^7s}{:<16s}{:>8d}원{:>7d}개{:>12d}원'.format(book['책번호'],book['책이름'],book['가격'],book['수량'],book['총액']))
+    print('=' * 60)
     print(f'\t\t도서 재고 총액: {total_price}원')
 
 # 도서번호를 입력받는 함수
 def input_code(msg):
-    print(f'\n\n# {msg}하실 제품의 번호를 입력하세요')
+    print(f'\n\n>> {msg}하실 제품의 번호를 입력하세요')
     print('# 도서번호 예시: a001, a002, ...')
     book_code = input('도서번호 >> ')
     return book_code
@@ -216,10 +218,10 @@ def search_book():
     
     if len(book) > 0:
         books_header()
-        print('{:^10s}{:^10s}{:>8d}원{:>6d}개{:>12d}원'.format(book['책번호'],book['책이름'],book['가격'],book['수량'],book['총액']))
+        print('{:^7s}{:^16s}{:>8d}원{:>7d}개{:>12d}원'.format(book['책번호'],book['책이름'],book['가격'],book['수량'],book['총액']))
         print('=' * 60)
     else:
-        print('\n# 존재하지 않는 도서입니다.')
+        print('\n!! 존재하지 않는 도서입니다. !!')
 
 # 도서 정보 수정하기
 def modify_book():
@@ -239,12 +241,12 @@ def modify_book():
         elif select == 3:
             book['수량'] = int(input('=> 수정할 수량({}) >> '.format(book['수량'])))
             book['가격'] = int(input('=> 수정할 가격({}) >> '.format(book['가격'])))
-            print('\n 정보수정이 정상 처리되었습니다.')
+            print('\n>> 정보수정이 정상 처리되었습니다. <<')
         else:
             print('# 변경을 취소합니다.')
         book['총액'] = book['가격'] * book['수량']
     else:
-        print('\n# 존재하지 않는 도서입니다.')
+        print('\n!! 존재하지 않는 도서입니다. !!')
 
 # 도서정보 삭제 처리 함수
 def delete_book():
@@ -253,10 +255,10 @@ def delete_book():
 
     if len(book) > 0:
         book_store.remove(book)
-        print('\n 도서가 정상 삭제되었습니다.')
+        print('\n>> 도서가 정상 삭제되었습니다. <<')
     else:
-        print('\n# 존재하지 않는 도서입니다.')
-        
+        print('\n!! 존재하지 않는 도서입니다. !!')
+
 
 ##################################################################################
 
@@ -305,6 +307,11 @@ if __name__ == '__main__':
                         delete_book()
                     elif book_info == 6:
                         exit_program()
+                    else:
+                        print('# 메뉴를 잘못 입력했습니다.')
+
+                    input('\n# 메뉴화면으로 돌아가시려면 Enter를 누르세요.')
+
 
         # 리스트에 정보 없을때 회원가입 시키는거
         elif menu == 3:
