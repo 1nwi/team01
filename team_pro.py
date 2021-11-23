@@ -1,4 +1,15 @@
+
+# 세이브파일 관련 모듈
+import os
+import pickle
+
+
 #전역
+
+dir_name = 'D:/isec_spring1/team01/list/'
+file_user_name = 'userinfo.sav'
+
+file_book_name = 'bookinfo.sav'
 
 
 user_list = [
@@ -43,6 +54,52 @@ book_store = [
 
 #함수 정의부
 
+# 유저 세이브 파일 생성 함수
+def save_user():
+    if not os.path.isdir(dir_name):
+        os.mkdir(dir_name)
+    
+    try:
+        u = open(dir_name+file_user_name, 'wb')
+    except:
+        print('파일 저장 실패!')
+    finally:
+        u.close()
+
+# 유저 로드 파일 기능 함수
+def load_user():
+    global user_list
+
+    try:
+        u = open(dir_name+file_user_name, 'rb')
+        user_list = pickle.load(u)
+    except:
+        print('파일 로드 실패!')
+    finally:
+        u.close()
+
+def save_book():
+    if not os.path.isdir(dir_name):
+        os.mkdir(dir_name)
+    try:
+        bi = open(dir_name+file_book_name, 'wb')
+    except:
+        print('파일 저장 실패!')
+    finally:
+        bi.close()
+
+def load_book():
+    global book_list
+
+    try:
+        bi = open(dir_name+file_book_name, 'rb')
+        book_list = pickle.load(bi)
+    except:
+        print('파일 로드 실패!')
+    finally:
+        bi.close()
+
+
 #첫 회원가입/로그인 화면 보여주기
 def show_first():
     print("\n\n====== 도서 재고관리 프로그램 ======")
@@ -80,7 +137,7 @@ def insert_id_pw():
     user['name'] = input('이름 >> ')
 
     user_list.append(user)
-    
+    save_user()
     print('\n>> 회원가입이 완료되었습니다. <<')
 
 
@@ -176,7 +233,7 @@ def ipt_book():
 
     book_store.append(book)
     print('\n>> 신규 도서가 등록되었습니다. <<')
-
+    save_book()
 
 # 도서정보 출력 머리말
 def books_header():
@@ -235,13 +292,16 @@ def modify_book():
         if select == 1:         
             book['수량'] = int(input('=> 수정할 수량({}) >> '.format(book['수량'])))
             print('\n 정보수정이 정상 처리되었습니다.')
+            save_book()
         elif select == 2:
             book['가격'] = int(input('=> 수정할 가격({}) >> '.format(book['가격'])))
             print('\n 정보수정이 정상 처리되었습니다.')
+            save_book()
         elif select == 3:
             book['수량'] = int(input('=> 수정할 수량({}) >> '.format(book['수량'])))
             book['가격'] = int(input('=> 수정할 가격({}) >> '.format(book['가격'])))
             print('\n>> 정보수정이 정상 처리되었습니다. <<')
+            save_book()
         else:
             print('# 변경을 취소합니다.')
         book['총액'] = book['가격'] * book['수량']
@@ -256,6 +316,7 @@ def delete_book():
     if len(book) > 0:
         book_store.remove(book)
         print('\n>> 도서가 정상 삭제되었습니다. <<')
+        save_book()
     else:
         print('\n!! 존재하지 않는 도서입니다. !!')
 
@@ -276,7 +337,7 @@ def exit_program():
 
 #실행부
 if __name__ == '__main__':
-    
+    load_user
     while True:
         show_first()
         
@@ -290,6 +351,8 @@ if __name__ == '__main__':
 
 
             if is_login:
+                
+                
                 # is_login이 True => 도서 등록 메뉴로 전환
                 while True:
                     show_second()
