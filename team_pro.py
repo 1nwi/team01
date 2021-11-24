@@ -6,7 +6,7 @@ import pickle
 
 
 #===== 전역정의부 =====#
-dir_name = '/Users/1nwi/Desktop/back/team01/list/'
+dir_name = 'D:/isec_spring1/team01/list/'     # 다른컴퓨터에서 위치 바꿔줘야함
 file_name1 = 'user_list.sav'
 file_name2 = 'book_store.sav'
 
@@ -167,7 +167,7 @@ def insert_id_pw():
     user_list.append(user)
     
     print('\n>> 회원가입이 완료되었습니다. <<')
-    save_user_list()
+    save_user_list()   # 다른컴퓨터에서 주석처리
     
 
 # 기존 직원 로그인
@@ -276,7 +276,7 @@ def modify_info():
 
     else:
         print('\n[ID : {}] 해당하는 직원 정보가 등록되지 않았습니다.'.format(code_id))
-    save_user_list()
+    save_user_list()   #다른컴퓨터에서 주석처리
 
 # 회원정보 삭제 처리 함수
 def delete_info():
@@ -289,7 +289,7 @@ def delete_info():
 
     else:
         print('\n[ID: {}]에 해당하는 직원 정보가 등록되지 않았습니다.'.format(code_id))
-    save_user_list()
+    save_user_list()  #다른컴퓨터에서 주석처리
 
 
            
@@ -337,7 +337,7 @@ def ipt_book():
 
     book_store.append(book)
     print('\n>> 신규 도서가 등록되었습니다. <<')
-    save_book_store()
+    save_book_store()  #다른컴퓨터에서 주석
     
 
 # 도서정보 출력 머리말
@@ -409,7 +409,7 @@ def modify_book():
         book['총액'] = book['가격'] * book['수량']
     else:
         print('\n!! 존재하지 않는 도서입니다. !!')
-    save_book_store()
+    save_book_store()   #다른컴퓨터에서 주석
     
 
 # 도서정보 삭제 처리 함수
@@ -422,7 +422,7 @@ def delete_book():
         print('\n>> 도서가 정상 삭제되었습니다. <<')
     else:
         print('\n!! 존재하지 않는 도서입니다. !!')
-    save_book_store()
+    save_book_store()    #다른컴퓨터에서 주석
     
         
 
